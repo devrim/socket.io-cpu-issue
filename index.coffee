@@ -14,16 +14,17 @@ io = require('socket.io').listen server
 
 io.sockets.on 'connection', (socket) ->
 
-  io.sockets.send longAssString
+  # io.sockets.send longAssString
+  socket.broadcast.send longAssString
 
   socket.on 'publish', (message) ->
     io.sockets.send longAssString
   
   socket.on 'broadcast', (message) ->
-    socket.broadcast.send message
+    socket.broadcast.send longAssString
   
   socket.on 'whisper', (message) ->
-    socket.broadcast.emit 'secret', message
+    socket.broadcast.emit 'secret', longAssString
     
   # setInterval ->
   #   io.sockets.send longAssString
